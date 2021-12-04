@@ -1,35 +1,36 @@
 import { useState } from "react";
+import TemperatureScales from "../models/TemperatureScales";
 import BoilingVerdict from "./BoilingVerdict";
 import TemperatureInput from "./TemperatureInput";
 
 function Calculator() {
-  const [temperature, setTemperature] = useState(0);
-  const [scale, setScale] = useState("c");
+  const [temperature, setTemperature] = useState("0");
+  const [scale, setScale] = useState(TemperatureScales.celsius);
 
   const celsius =
-    scale === "f" ? tryConvert(temperature, toCelsius) : temperature;
+    scale === TemperatureScales.fahrengeit ? tryConvert(temperature, toCelsius) : temperature;
   const fahrenheit =
-    scale === "c" ? tryConvert(temperature, toFahrenheit) : temperature;
+    scale === TemperatureScales.celsius ? tryConvert(temperature, toFahrenheit) : temperature;
 
-  function onCelsiusChanged(celsius) {
-    setScale("c");
+  function onCelsiusChanged(celsius: string) {
+    setScale(TemperatureScales.celsius);
     setTemperature(celsius);
   }
 
-  function onFahrengeitChanged(fahrengeit) {
-    setScale("f");
+  function onFahrengeitChanged(fahrengeit: string) {
+    setScale(TemperatureScales.fahrengeit);
     setTemperature(fahrengeit);
   }
 
   return (
     <div>
       <TemperatureInput
-        scale="c"
+        scale={TemperatureScales.celsius}
         onTemperatureChange={onCelsiusChanged}
         temperature={celsius}
       />
       <TemperatureInput
-        scale="f"
+        scale={TemperatureScales.fahrengeit}
         onTemperatureChange={onFahrengeitChanged}
         temperature={fahrenheit}
       />
@@ -38,15 +39,15 @@ function Calculator() {
   );
 }
 
-function toCelsius(fahrenheit) {
+function toCelsius(fahrenheit: number): number {
   return ((fahrenheit - 32) * 5) / 9;
 }
 
-function toFahrenheit(celsius) {
+function toFahrenheit(celsius: number): number {
   return (celsius * 9) / 5 + 32;
 }
 
-function tryConvert(temperature, convert) {
+function tryConvert(temperature: string, convert: Function): string {
   const input = parseFloat(temperature);
   if (Number.isNaN(input)) {
     return "";
