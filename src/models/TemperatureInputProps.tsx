@@ -1,7 +1,7 @@
 import TemperatureScales from "./TemperatureScales";
 
 interface TemperatureInputProps {
-  onTemperatureChange: Function;
+  onTemperatureChange: (value: string) => void;
   scale: TemperatureScales;
   temperature: string;
 }

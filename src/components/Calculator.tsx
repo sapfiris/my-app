@@ -4,8 +4,8 @@ import BoilingVerdict from "./BoilingVerdict";
 import TemperatureInput from "./TemperatureInput";
 
 function Calculator() {
-  const [temperature, setTemperature] = useState("0");
-  const [scale, setScale] = useState(TemperatureScales.celsius);
+  const [temperature, setTemperature] = useState<string>("0");
+  const [scale, setScale] = useState<TemperatureScales>(TemperatureScales.celsius);
 
   const celsius =
     scale === TemperatureScales.fahrengeit ? tryConvert(temperature, toCelsius) : temperature;
@@ -47,7 +47,7 @@ function toFahrenheit(celsius: number): number {
   return (celsius * 9) / 5 + 32;
 }
 
-function tryConvert(temperature: string, convert: Function): string {
+function tryConvert(temperature: string, convert: (temperature: number) => number): string {
   const input = parseFloat(temperature);
   if (Number.isNaN(input)) {
     return "";

@@ -1,7 +1,8 @@
+import React from "react";
 import TemperatureInputProps from "../models/TemperatureInputProps";
 
 function TemperatureInput(props: TemperatureInputProps) {
-  function temperatureHandler(e: any) {
+  function temperatureHandler(e: React.ChangeEvent<HTMLInputElement>) {
     props.onTemperatureChange(e.target.value);
   }
 
